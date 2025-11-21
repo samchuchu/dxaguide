@@ -124,8 +124,9 @@ const App: React.FC = () => {
               <div>
                  <button 
                     onClick={handleReset}
-                    className="p-3 hover:bg-slate-200 rounded-full transition-colors text-slate-600 bg-white border border-slate-200 shadow-sm"
+                    className="p-3 hover:bg-slate-200 rounded-full transition-colors text-slate-600 bg-white border border-slate-200 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
                     title="Reset Flow"
+                    aria-label="Reset Flow"
                  >
                     <RefreshCw className="w-6 h-6" />
                  </button>
@@ -190,10 +191,11 @@ const App: React.FC = () => {
 
                         <motion.button
                             onClick={handleExit}
+                            aria-label="Close Application"
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.5, duration: 0.5 }}
-                            className="absolute bottom-1 p-4 rounded-full border-2 border-white/50 text-white hover:bg-white/20 transition-colors backdrop-blur-sm"
+                            className="absolute bottom-1 p-4 rounded-full border-2 border-white/50 text-white hover:bg-white/20 transition-colors backdrop-blur-sm focus:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
                         >
                             <X className="w-8 h-8" strokeWidth={1.5} />
                         </motion.button>

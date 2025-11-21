@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { InstructionStep } from '../types';
 
@@ -9,10 +9,19 @@ interface InstructionBubbleProps {
 
 export const InstructionBubble: React.FC<InstructionBubbleProps> = ({ step, onComplete }) => {
   const isCompleted = step.status === 'completed';
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  // Auto-focus the button when the step changes (for keyboard users)
+  useEffect(() => {
+    if (!isCompleted && buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  }, [step.id, isCompleted]);
 
   return (
     <div className="relative flex flex-col items-center justify-center w-full h-full">
       <motion.button
+        ref={buttonRef}
         layout
         initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
         animate={
@@ -30,6 +39,11 @@ export const InstructionBubble: React.FC<InstructionBubbleProps> = ({ step, onCo
         exit={{ scale: 1.2, opacity: 0, filter: "blur(10px)", transition: { duration: 0.1 } }}
         onClick={() => !isCompleted && onComplete(step.id)}
         disabled={isCompleted}
+        aria-label={
+            isCompleted 
+            ? `Step completed: ${step.title}` 
+            : `Current step: ${step.title}. ${step.description || ''}. Click to complete.`
+        }
         style={isCompleted ? {
             backgroundImage: `url('https://raw.githubusercontent.com/samchuchu/morrow/refs/heads/main/bg.png')`,
             backgroundSize: 'cover',
@@ -40,7 +54,8 @@ export const InstructionBubble: React.FC<InstructionBubbleProps> = ({ step, onCo
           group relative flex flex-col items-center justify-center
           w-80 h-80 rounded-full 
           transition-all duration-700 ease-in-out
-          border-4
+          border-4 outline-none
+          focus-visible:ring-4 focus-visible:ring-blue-400 focus-visible:ring-offset-4
           ${isCompleted 
             ? 'border-transparent text-white cursor-default' 
             : 'bg-gray-100 border-gray-200 text-gray-800 hover:bg-white hover:border-blue-300 hover:scale-105 hover:shadow-xl cursor-pointer'
@@ -65,7 +80,7 @@ export const InstructionBubble: React.FC<InstructionBubbleProps> = ({ step, onCo
           )}
 
           {!isCompleted && (
-            <span className="absolute bottom-12 text-xs font-bold text-slate-300 uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span className="absolute bottom-12 text-xs font-bold text-slate-300 uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300">
               Click to Complete
             </span>
           )}
