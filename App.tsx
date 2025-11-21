@@ -25,7 +25,7 @@ const INSTRUCTION_SEQUENCE = [
   { title: 'DAILY QC CHECK LIST', description: 'Complete the checklist, record details of any error message / event.' },
   { title: 'TOP UP', description: 'Gowns / tissue / wipes / look around what is missing.' },
   { title: 'UPDATE', description: 'Quick check appointment scheduler, update colleagues if any arrangement required.' },
-  { title: 'READY SET GO', description: 'Delivering caring and positive experience is at the heart of healthcare. Just as important is smooth teamwork. Let's make today a good one 😁' },
+  { title: 'READY SET GO', description: "Delivering caring and positive experience is at the heart of healthcare. Just as important is smooth teamwork. Let's make today a good one 😁" },
 ];
 
 const App: React.FC = () => {
